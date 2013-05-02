@@ -1,0 +1,28 @@
+{
+    "name": "tmpjr/pubmed",
+    "type": "library",
+    "description": "Wrapper API for the NCBI PubMed EFetch Utilities developed at Ambry Genetics and made public for use by the community.",
+    "keywords": ["ncbi","pubmed","wrapper","api"],
+    "homepage": "https://github.com/tmpjr/pubmed",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tom Ploskina Jr.",
+            "email": "tploskina@ambrygen.com",
+            "homepage": "http://ambrygen.com"
+        },
+	{
+            "name": "Tom Ploskina Jr.",
+            "email": "tploskinajr@gmail.com",
+            "homepage": "https://github.com/tmpjr"
+        }   	
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "PubMed": "src/"
+        }
+    }
+}
