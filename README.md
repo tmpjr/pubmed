@@ -1,4 +1,4 @@
-PubMed PHP - API wrapper library to interface with NCBI's PubMed Efetch Server
+PubMed PHP - API wrapper library to interface with NCBI's PubMed Efetch Server - Ambry Genetics
 ==============================
 
 Getting started
@@ -52,4 +52,10 @@ $articles = $api->query('CFTR');
 print_r($articles);
 
 ```
+
+## License
+
+Ambry Gentics (http://www.ambrygne.com) would like to share this library with the community. It is licensed under the open MIT license:
+
+http://rem.mit-license.org
 
