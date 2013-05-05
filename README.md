@@ -1,5 +1,7 @@
-PubMed PHP - API wrapper library to interface with NCBI's PubMed Efetch Server - Ambry Genetics
-==============================
+![Ambry Genetics Logo](http://www.ambrygen.com/sites/all/themes/fingerprint/logo.png)
+=============
+
+### API wrapper library to interface with NCBI's PubMed Efetch Server
 
 Getting started
 ---------------
