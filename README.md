@@ -57,7 +57,7 @@ print_r($articles);
 
 ## License
 
-Ambry Gentics (http://www.ambrygen.com) would like to share this library with the community. It is licensed under the open MIT license:
+Ambry Genetics (http://www.ambrygen.com) would like to share this library with the community. It is licensed under the open MIT license:
 
 http://rem.mit-license.org
 
