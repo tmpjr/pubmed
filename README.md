@@ -1,6 +1,3 @@
-![Ambry Genetics Logo](http://www.ambrygen.com/sites/all/themes/fingerprint/logo.png)
-=============
-
 ### API wrapper library to interface with NCBI's PubMed Efetch Server
 
 Getting started
