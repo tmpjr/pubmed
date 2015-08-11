@@ -4,8 +4,8 @@
  * PHP wrapper for NCBI PubMed
  *   Extend Pubmed for term specific searching
  * 
- * @author  Tom Ploskina <tploskina@ambrygen.com>
- * @copyright Copyright (c) 2013 Ambry Genetics http://www.ambrygen.com
+ * @author  Tom Ploskina <tploskinajr@gmail.com>
+ * @copyright Copyright (c) 2013 http://tmpjr.me
  * @license MIT http://opensource.org/licenses/MIT
  * @version 1.0
  */
