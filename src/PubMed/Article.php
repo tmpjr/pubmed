@@ -67,6 +67,7 @@ class Article
       'Issue'        => $this->getIssue(),
       'PubYear'      => $this->getPubYear(),
       'PubMonth'     => $this->getPubMonth(),
+      'PubDay'       => $this->getPubDay(),
       'ISSN'         => $this->getISSN(),
       'JournalTitle' => $this->getJournalTitle(),
       'JournalAbbr'  => $this->getJournalAbbr(),
@@ -74,7 +75,9 @@ class Article
       'ArticleTitle' => $this->getArticleTitle(),
       'AbstractText' => $this->getAbstractText(),
       'Affiliation'  => $this->getAffiliation(),
-      'Authors'      => $this->getAuthors()
+      'Authors'      => $this->getAuthors(),
+      'Doid'         => $this->getDoid(),
+      'Pii'          => $this->getPii()
     );
   }
 
@@ -114,6 +117,22 @@ class Article
   }
 
   /**
+   * @return string
+   */
+  public function getDoid()
+  {
+      return (string) $this->xml->ELocationID[1];
+  }
+
+  /**
+   * @return string
+   */
+  public function getPii()
+  {
+      return (string) $this->xml->ELocationID[0];
+  }
+
+  /**
    * Get the volume from the SimpleXMLElement
    * @return string Journal Volume Number
    */
@@ -147,6 +166,15 @@ class Article
   public function getPubMonth()
   {
     return (string) $this->xml->Journal->JournalIssue->PubDate->Month;
+  }
+
+  /**
+   * Get the PubDay from the SimpleXMLElement
+   * @return string PubDay
+   */
+  public function getPubDay()
+  {
+    return (string) $this->xml->Journal->JournalIssue->PubDate->Day;
   }
 
   /**
