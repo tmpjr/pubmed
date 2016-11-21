@@ -140,6 +140,7 @@ abstract class PubMed
     curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
     curl_setopt($this->curl, CURLOPT_TIMEOUT, $this->timeout);
     curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($this->curl, CURLOPT_FOLLOWLOCATION, true);
 
     $rs = curl_exec($this->curl);
     $curl_error = curl_error($this->curl);
