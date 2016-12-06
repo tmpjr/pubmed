@@ -21,7 +21,7 @@ class PubMedId extends PubMed
    */
   protected function getUrl()
   {
-    return 'http://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi';
+    return 'https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi';
   }
 
   /**
