@@ -35,6 +35,7 @@ class Article
   {
     $this->xml = $xml->PubmedArticle->MedlineCitation->Article;
     $this->pmid = (string) $xml->PubmedArticle->MedlineCitation->PMID;
+    $this->pubstat = (string) $xml->PubmedArticle->PubmedData->PublicationStatus;
   }
 
   /**
@@ -77,7 +78,8 @@ class Article
       'Affiliation'  => $this->getAffiliation(),
       'Authors'      => $this->getAuthors(),
       'Doid'         => $this->getDoid(),
-      'Pii'          => $this->getPii()
+      'Pii'          => $this->getPii(),
+      'PublicationStatus' =>$this->getPublicationStatus()
     );
   }
 
@@ -238,5 +240,14 @@ class Article
   public function getAffiliation()
   {
     return (string) $this->xml->Affiliation;
+  }
+
+  /**
+   * Get the publication status
+   * @return string PublicationStatus
+   */
+  public function getPublicationStatus()
+  {
+    return $this->pubstat;
   }
 }
