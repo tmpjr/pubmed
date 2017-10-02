@@ -36,6 +36,8 @@ class Article
     $this->xml = $xml->PubmedArticle->MedlineCitation->Article;
     $this->pmid = (string) $xml->PubmedArticle->MedlineCitation->PMID;
     $this->pubstat = (string) $xml->PubmedArticle->PubmedData->PublicationStatus;
+    $this->articleIds = $xml->PubmedArticle->PubmedData->ArticleIdList;
+    $this->parseIDs();
   }
 
   /**
@@ -118,12 +120,24 @@ class Article
     return $this->pmid;
   }
 
+
+  /**
+  *
+  */
+  private function findAID($type)
+  {
+    foreach($this->articleIds as $oneAID) {
+        if($oneAID['IdType']==$type){
+          return $oneAID;
+        }
+    }
+  }
   /**
    * @return string
    */
   public function getDoid()
   {
-      return (string) $this->xml->ELocationID[1];
+      return (string) $this->findAID('doi');
   }
 
   /**
@@ -131,7 +145,7 @@ class Article
    */
   public function getPii()
   {
-      return (string) $this->xml->ELocationID[0];
+      return (string) $this->findAID('pii');
   }
 
   /**
