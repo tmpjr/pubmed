@@ -13,7 +13,7 @@
 namespace PubMed;
 use SimpleXMLElement;
 
-class Article
+class Article implements \Serializable
 {
   /**
    * SimpleXMLElement class will work on
@@ -238,5 +238,27 @@ class Article
   public function getAffiliation()
   {
     return (string) $this->xml->Affiliation;
+  }
+  
+  /**
+   * Custom serialize
+   * @return string Serialized Article
+   */
+  public function serialize()
+  {
+      $ret = array();
+      $ret['pmid'] = $this->pmid;
+      $ret['xml'] = $this->xml->asXML();
+      return serialize($ret);
+  }
+  
+  /**
+   * Custom unserialize
+   */
+  public function unserialize($data)
+  {
+      $ret = unserialize($data);
+      $this->pmid = $ret['pmid'];
+      $this->xml = simplexml_load_string($ret['xml']);
   }
 }
