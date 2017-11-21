@@ -121,7 +121,16 @@ class Article implements \Serializable
    */
   public function getDoid()
   {
-      return (string) $this->xml->ELocationID[1];
+    $ELocationID = "";
+    if (isset($this->xml->ELocationID)) {
+      foreach ($this->xml->ELocationID as $uid) {
+        if (preg_match('/^10.\d{4,9}\//', $uid)) {
+          $ELocationID = (string) $uid;
+        }
+      }
+    }
+
+    return $ELocationID;
   }
 
   /**
@@ -129,7 +138,16 @@ class Article implements \Serializable
    */
   public function getPii()
   {
-      return (string) $this->xml->ELocationID[0];
+      $pii = "";
+      if (isset($this->xml->ELocationID)) {
+          foreach ($this->xml->ELocationID as $uid) {
+              if (!preg_match('/^10.\d{4,9}\//', $uid)) {
+                  $pii = (string) $uid;
+              }
+          }
+      }
+
+      return $pii;
   }
 
   /**
@@ -156,7 +174,16 @@ class Article implements \Serializable
    */
   public function getPubYear()
   {
-    return (string) $this->xml->Journal->JournalIssue->PubDate->Year;
+      if (!empty($this->xml->Journal->JournalIssue->PubDate->Year)) {
+          return (string) $this->xml->Journal->JournalIssue->PubDate->Year;
+      } else {
+          $pubDate = (string) $this->xml->Journal->JournalIssue->PubDate->MedlineDate;
+          if (preg_match('/^\d\d\d\d/', $pubDate)) {
+              return substr($pubDate, 0, 4);
+          } else {
+              return (string) $this->xml->ArticleDate->Year;
+          }
+      }
   }
 
   /**
