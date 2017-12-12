@@ -35,6 +35,8 @@ class Article implements \Serializable
   {
     $this->xml = $xml->PubmedArticle->MedlineCitation->Article;
     $this->pmid = (string) $xml->PubmedArticle->MedlineCitation->PMID;
+    $this->pubstat = (string) $xml->PubmedArticle->PubmedData->PublicationStatus;
+    $this->articleIds = $xml->PubmedArticle->PubmedData->ArticleIdList;
   }
 
   /**
@@ -77,7 +79,8 @@ class Article implements \Serializable
       'Affiliation'  => $this->getAffiliation(),
       'Authors'      => $this->getAuthors(),
       'Doid'         => $this->getDoid(),
-      'Pii'          => $this->getPii()
+      'Pii'          => $this->getPii(),
+      'PublicationStatus' =>$this->getPublicationStatus()
     );
   }
 
@@ -117,20 +120,23 @@ class Article implements \Serializable
   }
 
   /**
+  *
+  */
+  private function findAID($type)
+  {
+    foreach($this->articleIds as $oneAID) {
+        if($oneAID['IdType']==$type){
+          return $oneAID;
+        }
+    }
+  }
+
+  /**
    * @return string
    */
   public function getDoid()
   {
-    $ELocationID = "";
-    if (isset($this->xml->ELocationID)) {
-      foreach ($this->xml->ELocationID as $uid) {
-        if (preg_match('/^10.\d{4,9}\//', $uid)) {
-          $ELocationID = (string) $uid;
-        }
-      }
-    }
-
-    return $ELocationID;
+      return (string) $this->findAID('doi');
   }
 
   /**
@@ -138,16 +144,7 @@ class Article implements \Serializable
    */
   public function getPii()
   {
-      $pii = "";
-      if (isset($this->xml->ELocationID)) {
-          foreach ($this->xml->ELocationID as $uid) {
-              if (!preg_match('/^10.\d{4,9}\//', $uid)) {
-                  $pii = (string) $uid;
-              }
-          }
-      }
-
-      return $pii;
+      return (string) $this->findAID('pii');
   }
 
   /**
@@ -265,6 +262,15 @@ class Article implements \Serializable
   public function getAffiliation()
   {
     return (string) $this->xml->Affiliation;
+  }
+
+  /**
+   * Get the publication status
+   * @return string PublicationStatus
+   */
+  public function getPublicationStatus()
+  {
+    return $this->pubstat;
   }
   
   /**
