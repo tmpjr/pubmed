@@ -1,5 +1,5 @@
 {
-    "name": "1px/pubmed",
+    "name": " tmpjr/pubmed",
     "type": "library",
     "description": "Wrapper API for the NCBI PubMed EFetch Utilities developed at Ambry Genetics and made public for use by the community.",
     "keywords": ["ncbi", "pubmed", "wrapper", "api"],
