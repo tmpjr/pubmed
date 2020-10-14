@@ -1,13 +1,12 @@
 ### API wrapper library to interface with NCBI's PubMed Efetch Server
 
-Getting started
----------------
+## Getting started
 
 ### Installing via Composer
 
 The recommended way to install PubMed is through [Composer](http://getcomposer.org).
 
-1. Add ``tmpjr/pubmed`` as a dependency in your project's ``composer.json`` file:
+1.  Add `tmpjr/pubmed` as a dependency in your project's `composer.json` file:
 
         {
             "require": {
@@ -15,15 +14,15 @@ The recommended way to install PubMed is through [Composer](http://getcomposer.o
             }
         }
 
-2. Download and install Composer:
+2.  Download and install Composer:
 
         curl -s http://getcomposer.org/installer | php
 
-3. Install your dependencies:
+3.  Install your dependencies:
 
         php composer.phar install
 
-4. Require Composer's autoloader
+4.  Require Composer's autoloader
 
     Composer also prepares an autoload file that's capable of autoloading all of the classes in any of the libraries that it downloads. To use it, just add the following line to your code's bootstrap process:
 
@@ -31,8 +30,7 @@ The recommended way to install PubMed is through [Composer](http://getcomposer.o
 
 You can find out more on how to install Composer, configure autoloading, and other best-practices for defining dependencies at [getcomposer.org](http://getcomposer.org).
 
-Basic Usage
------------
+## Basic Usage
 
 ```php
 <?php
@@ -42,11 +40,13 @@ require 'vendor/autoload.php';
 // Search By PMID
 $api = new PubMed\PubMedId();
 $article = $api->query(15221447);
+$api->setApiKey('xxx');
 print_r($article);
 
 // Search By Term
 $api = new PubMed\Term();
 $api->setReturnMax(100); // set max returned articles, defaults to 10
+$api->setApiKey('xxx');
 $articles = $api->query('CFTR');
 print_r($articles);
 
@@ -57,4 +57,3 @@ print_r($articles);
 Licensed under the open MIT license:
 
 http://rem.mit-license.org
-
