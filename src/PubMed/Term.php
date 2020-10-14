@@ -1,9 +1,9 @@
-<?php 
+<?php
 
 /**
  * PHP wrapper for NCBI PubMed
  *   Extend Pubmed for term specific searching
- * 
+ *
  * @author  Tom Ploskina <tploskina@ambrygen.com>
  * @copyright Copyright (c) 2013 Ambry Genetics http://www.ambrygen.com
  * @license MIT http://opensource.org/licenses/MIT
@@ -11,6 +11,7 @@
  */
 
 namespace PubMed;
+
 use SimpleXMLElement;
 
 class Term extends PubMed
@@ -39,15 +40,27 @@ class Term extends PubMed
    * @return array array of  New PubMed\Article objects
    */
   public function query($term)
-  { 
+  {
     $content = $this->sendRequest($term);
-    $xml = new SimpleXMLElement($content);
+
+    libxml_use_internal_errors(true); // this turns off spitting errors on screen
+    try {
+      $xml = new SimpleXMLElement($content);
+      // throw new Exception('Some Error Message');
+    } catch (\Exception $e) {
+      // var_dump($e->getMessage());
+
+      return; // if error end here
+    }
+
+    // no error, continue
     $this->articleCount = (int) $xml->Count;
     $articles = array();
 
     if ($this->articleCount > 0) {
       foreach ($xml->IdList->Id as $k => $pmid) {
         $api = new PubMedId();
+        $api->setApiKey('6b0df5dce10a4a4a74081f1e1fcea05c8d09');
         $articles[] = $api->query($pmid);
       }
 
