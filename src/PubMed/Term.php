@@ -60,7 +60,7 @@ class Term extends PubMed
     if ($this->articleCount > 0) {
       foreach ($xml->IdList->Id as $k => $pmid) {
         $api = new PubMedId();
-        $api->setApiKey('6b0df5dce10a4a4a74081f1e1fcea05c8d09');
+        $api->setApiKey($this->apiKey);
         $articles[] = $api->query($pmid);
       }
 
