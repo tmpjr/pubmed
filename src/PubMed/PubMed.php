@@ -3,7 +3,7 @@
 /**
  * PHP wrapper for NCBI PubMed
  *   Extend Pubmed for term specific searching
- * 
+ *
  * @author  Tom Ploskina <tploskinajr@gmail.com>
  * @copyright Copyright (c) 2013 http://tmpjr.me
  * @license MIT http://opensource.org/licenses/MIT
@@ -36,7 +36,7 @@ abstract class PubMed
    * Which database from NCBI to pull from
    * @var string
    */
-  protected $db = 'PubMed';
+  protected $db = 'pubmed';
 
   /**
    * The maximum number of articles to receive
@@ -49,6 +49,12 @@ abstract class PubMed
    * @var integer
    */
   protected $returnStart = 0;
+
+  /**
+   * NCBI Api Key
+   * @var integer
+   */
+  protected $apiKey = '';
 
   /**
    * NCBI URL, should be set in child class
@@ -72,7 +78,7 @@ abstract class PubMed
    * Return mode from NCBI's API
    */
   const RETURN_MODE = 'xml';
-  
+
   /**
    *  Initiate the cURL connection
    */
@@ -86,13 +92,17 @@ abstract class PubMed
    * -- do not implement here
    * @return string url
    */
-  protected function getUrl() {}
+  protected function getUrl()
+  {
+  }
 
   /**
    * Get the URI variable name, specific to child classes
    * @return string eg, "term"
    */
-  protected function getSearchName() {}
+  protected function getSearchName()
+  {
+  }
 
   /**
    * Return the article count
@@ -121,7 +131,16 @@ abstract class PubMed
     return $this->returnStart = intval($start);
   }
 
-   /**
+  /**
+   * Set the api-key
+   * @param string $value the ncbi api-key
+   */
+  public function setApiKey($key)
+  {
+    return $this->apiKey = $key;
+  }
+
+  /**
    * Send the request to NCBI, return the raw result,
    * throw \Ambry\Pubmed exception on error
    * @param  string $searchTerm What are we searching for?
@@ -135,6 +154,7 @@ abstract class PubMed
     $url .= "&retmode=" . self::RETURN_MODE;
     $url .= "&retstart=" . intval($this->returnStart);
     $url .= "&" . $this->getSearchName() . "=" . urlencode($searchTerm);
+    $url .= "&api_key=" . $this->apiKey;
 
     curl_setopt($this->curl, CURLOPT_URL, $url);
     curl_setopt($this->curl, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
